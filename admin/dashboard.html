@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin/style.css">
+    <style>
+        body {
+            background: #f5f5f5;
+            display: block;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .save-btn {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .menu {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+        }
+        
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Admin Dashboard - Hidayah Vibes</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    
+    <div class="menu">
+        <a href="#home">Home Edit</a>
+        <a href="#products">Products</a>
+        <a href="#settings">Settings</a>
+    </div>
+    
+    <div class="container">
+        <!-- Home Content Edit -->
+        <div class="card" id="home">
+            <h2>Edit Homepage</h2>
+            <textarea id="homeText">
+Welcome to Hidayah Vibes!
+We provide the best Islamic content.
+Contact us for more information.
+            </textarea>
+            <button class="save-btn" onclick="saveHome()">Save Changes</button>
+        </div>
+        
+        <!-- Products/Services -->
+        <div class="card" id="products">
+            <h2>Manage Products/Services</h2>
+            <input type="text" id="newItem" placeholder="New product name" style="width:70%; padding:10px;">
+            <button class="save-btn" onclick="addProduct()">Add Product</button>
+            <ul id="productList">
+                <li>Islamic Books <button onclick="removeItem(this)">Remove</button></li>
+                <li>Quran Classes <button onclick="removeItem(this)">Remove</button></li>
+            </ul>
+        </div>
+        
+        <!-- Settings -->
+        <div class="card" id="settings">
+            <h2>Website Settings</h2>
+            <p>Contact Email: <input type="text" id="email" value="info@hidayahvibes.com"></p>
+            <p>Phone Number: <input type="text" id="phone" value="+880 1234 567890"></p>
+            <button class="save-btn" onclick="saveSettings()">Save Settings</button>
+        </div>
+    </div>
+    
+    <script>
+        function logout() {
+            if(confirm("Are you sure you want to logout?")) {
+                window.location.href = "admin/index.html";
+            }
+        }
+        
+        function saveHome() {
+            var content = document.getElementById("homeText").value;
+            alert("Homepage content saved!\n\n" + content);
+            // Note: This doesn't actually save to your website
+            // For real saving, you need backend
+        }
+        
+        function addProduct() {
+            var newItem = document.getElementById("newItem").value;
+            if(newItem === "") {
+                alert("Please enter product name");
+                return;
+            }
+            
+            var list = document.getElementById("productList");
+            var li = document.createElement("li");
+            li.innerHTML = newItem + ' <button onclick="removeItem(this)">Remove</button>';
+            list.appendChild(li);
+            
+            document.getElementById("newItem").value = "";
+        }
+        
+        function removeItem(button) {
+            if(confirm("Delete this item?")) {
+                button.parentElement.remove();
+            }
+        }
+        
+        function saveSettings() {
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            alert("Settings saved!\nEmail: " + email + "\nPhone: " + phone);
+        }
+        
+        // Simple login check
+        if(!confirm("Are you the admin? (Click OK to continue)")) {
+            window.location.href = "admin/index.html";
+        }
+    </script>
+</body>
+  </html>
